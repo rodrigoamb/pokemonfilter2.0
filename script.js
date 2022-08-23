@@ -8,7 +8,7 @@ let currentPage = 1;
 
 async function getDataPokemon(accumulated = 1, page = 1) {
   const listPokemon = [];
-  for (let i = accumulated; i < 30 * page; i++) {
+  for (let i = accumulated; i <= 6 * page; i++) {
     const url = 'https://pokeapi.co/api/v2/pokemon/' + i;
     const response = await fetch(url);
     const data = await response.json();
@@ -70,11 +70,11 @@ nextBtn.addEventListener('click', () => {
   if (currentPage === 1) {
     previousBtn.style = 'visibility: none';
     currentPage++;
-    let accumulated = 30;
+    let accumulated = 7;
     hideCards();
     getDataPokemon(accumulated, currentPage);
     numberPage.innerHTML = currentPage;
-  } else if (currentPage === 8) {
+  } else if (currentPage === 41) {
     nextBtn.style = 'visibility: hidden';
     currentPage++;
     let accumulated = 240;
@@ -84,7 +84,7 @@ nextBtn.addEventListener('click', () => {
   } else {
     previousBtn.style = 'visibility: none';
     currentPage++;
-    let accumulated = 30 * (currentPage - 1);
+    let accumulated = 6 * (currentPage - 1) + 1;
     hideCards();
     getDataPokemon(accumulated, currentPage);
     numberPage.innerHTML = currentPage;
@@ -101,7 +101,7 @@ previousBtn.addEventListener('click', () => {
   } else {
     nextBtn.style = 'visibility: none';
     currentPage--;
-    let accumulated = 30 * (currentPage - 1);
+    let accumulated = 6 * (currentPage - 1) + 1;
     hideCards();
     getDataPokemon(accumulated, currentPage);
     numberPage.innerHTML = currentPage;
