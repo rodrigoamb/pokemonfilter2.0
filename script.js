@@ -1,74 +1,38 @@
-/* LISTA POKEMON */
-const listPokemon = [
-  {
-    id: '3',
-    pokemon: 'venusaur',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png',
-    type: 'Grama',
-    attacks: ['Folha navalha', 'Raio Solar', 'Chicote de vinha'],
-  },
-  {
-    id: '6',
-    pokemon: 'charizard',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png',
-    type: 'Fogo',
-    attacks: ['Lança Chamas', 'Ataque voador', 'Ataque rápido'],
-  },
-  {
-    id: '9',
-    pokemon: 'blastoise',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png',
-    type: 'Água',
-    attacks: ['Canhão de água', 'Ataque Surf', 'Mordida'],
-  },
-  {
-    id: '12',
-    pokemon: 'butterfree',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/012.png',
-    type: 'Inseto',
-    attacks: ['Pó do sono', 'Ataque rápido', 'Pó envenenado'],
-  },
-  {
-    id: '18',
-    pokemon: 'pidgeot',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/018.png',
-    type: 'Voador',
-    attacks: ['Furacão', 'Ataque rápido', 'Ataque voador'],
-  },
-  {
-    id: '25',
-    pokemon: 'pikachu',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png',
-    type: 'Elétrico',
-    attacks: ['Choque do trovão', 'Ataque rápido', 'Choque Paralizador'],
-  },
-  {
-    id: '149',
-    pokemon: 'dragonair',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/149.png',
-    type: 'dragão',
-    attacks: ['Hyper Bean', 'Ataque rápido', 'Garra de dragão'],
-  },
-  {
-    id: '150',
-    pokemon: 'mewtwo',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png',
-    type: 'psíquico',
-    attacks: ['Ataque pisíquico', 'Onda Paralizante', 'multiplicação'],
-  },
-  {
-    id: '151',
-    pokemon: 'mew',
-    img: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/151.png',
-    type: 'psíquico',
-    attacks: ['Ataque pisíquico', 'Onda Paralizante', 'multiplicação'],
-  },
-];
-
-/* PEGANDO ELEMENTOS DO DOM */
 const inputSearch = document.querySelector('#search');
 const containerCards = document.querySelector('.container-cards');
-/* CRIANDO AS FUNCTIONS */
+const containerBtn = document.querySelector('.container-btn');
+const nextBtn = document.getElementById('next-btn');
+const previousBtn = document.getElementById('previous-btn');
+const numberPage = document.getElementById('number-page');
+let currentPage = 1;
+
+async function getDataPokemon(accumulated = 1, page = 1) {
+  const listPokemon = [];
+  for (let i = accumulated; i < 30 * page; i++) {
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + i;
+    const response = await fetch(url);
+    const data = await response.json();
+    listPokemon.push(data);
+  }
+  creatingCards(listPokemon);
+}
+
+async function getDataLastPage(accumulated, lastPokemon) {
+  const listPokemon = [];
+  for (let i = accumulated; i < lastPokemon; i++) {
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + i;
+    const response = await fetch(url);
+    const data = await response.json();
+    listPokemon.push(data);
+  }
+  creatingCards(listPokemon);
+}
+
+window.onload = function loadPage() {
+  getDataPokemon();
+  previousBtn.style = 'visibility: hidden';
+};
+
 function creatingCards(list) {
   list.map((item) => {
     const card = document.createElement('div');
@@ -76,45 +40,70 @@ function creatingCards(list) {
     card.innerHTML = `
       <div class="img-card">
           <img
-            src=${item.img}
+            src=${item.sprites.other.dream_world.front_default}
             alt="pokemon image"
           />
         </div>
         <div class="name-card">
-          <p class="title">${item.pokemon}</p>
-          <p class="type" id="type">${item.type}</p>
+          <p class="title">${item.name}</p>
+          <p class="type" id="type">${item.types[0].type.name}</p>
         </div>
         <div class="description-card">
-          <ul>
-            <li id="attack1">${item.attacks[0]}</li>
-            <li id="attack2">${item.attacks[1]}</li>
-            <li id="attack3">${item.attacks[2]}</li>
-          </ul>
-          <p class="pokemon-number">#${item.id}</p>
+          <p class="pokemon-number">nº ${item.id}</p>
         </div>
       </div>
     `;
     containerCards.append(card);
   });
 }
+
 function filteringListPokemon(search) {
   let filteredList = listPokemon.filter((pkm) => pkm.pokemon.includes(search));
   return filteredList;
 }
+
 function hideCards() {
   containerCards.innerHTML = '';
 }
-/* LÓGICA DA APLICAÇÃO */
-creatingCards(listPokemon);
 
-inputSearch.addEventListener('input', () => {
-  const valueInput = inputSearch.value.toLowerCase();
-  if (valueInput !== '') {
-    const newList = filteringListPokemon(valueInput);
+nextBtn.addEventListener('click', () => {
+  if (currentPage === 1) {
+    previousBtn.style = 'visibility: none';
+    currentPage++;
+    let accumulated = 30;
     hideCards();
-    creatingCards(newList);
+    getDataPokemon(accumulated, currentPage);
+    numberPage.innerHTML = currentPage;
+  } else if (currentPage === 8) {
+    nextBtn.style = 'visibility: hidden';
+    currentPage++;
+    let accumulated = 240;
+    hideCards();
+    getDataLastPage(accumulated, 252);
+    numberPage.innerHTML = currentPage;
   } else {
+    previousBtn.style = 'visibility: none';
+    currentPage++;
+    let accumulated = 30 * (currentPage - 1);
     hideCards();
-    creatingCards(listPokemon);
+    getDataPokemon(accumulated, currentPage);
+    numberPage.innerHTML = currentPage;
+  }
+});
+
+previousBtn.addEventListener('click', () => {
+  if (currentPage === 2) {
+    previousBtn.style = 'visibility: hidden';
+    currentPage--;
+    hideCards();
+    getDataPokemon();
+    numberPage.innerHTML = currentPage;
+  } else {
+    nextBtn.style = 'visibility: none';
+    currentPage--;
+    let accumulated = 30 * (currentPage - 1);
+    hideCards();
+    getDataPokemon(accumulated, currentPage);
+    numberPage.innerHTML = currentPage;
   }
 });

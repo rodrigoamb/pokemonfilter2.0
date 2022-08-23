@@ -22,7 +22,7 @@ body {
   max-width: 1700px;
   margin: auto;
   padding-top: 50px;
-  background-color: hsla(0, 0%, 0%, 0.85);
+  background-color: rgba(207, 207, 207, 0.85);
 }
 
 .logo-pokemon {
@@ -35,16 +35,37 @@ body {
   scale: 1.05;
 }
 
-input {
-  display: block;
+.container-btn {
   width: 50%;
-  height: 3rem;
-  font-size: 1.5rem;
+  margin-bottom: 180px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-btn p {
+  font-size: 1.3rem;
+  border: 2px solid black;
+  padding: 10px 30px;
   border-radius: 10px;
-  padding: 20px;
-  border: none;
-  margin-bottom: 150px;
-  box-shadow: 0px 0px 10px;
+  background-color: white;
+}
+
+.container-btn p strong {
+  font-size: 1.5rem;
+}
+
+.container-btn button {
+  width: 200px;
+  padding: 20px 0;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  background-color: #400bd4;
+  box-shadow: 5px 5px 15px black;
+  cursor: pointer;
 }
 
 .container-cards {
@@ -64,9 +85,9 @@ input {
   align-items: center;
   position: static; /* ?????? */
   width: 20%;
-  height: 400px;
+  height: 420px;
   border-radius: 30px;
-  border: 5px solid white;
+  border: 15px solid black;
   background: radial-gradient(
     circle,
     rgba(215, 215, 215, 1) 0%,
@@ -80,6 +101,7 @@ input {
   position: relative;
   bottom: 120px;
   width: 350px;
+  height: 350px;
   filter: drop-shadow(0px 0px 5px #1c1c1c);
 }
 
@@ -94,10 +116,10 @@ input {
   border: 5px solid white;
   z-index: 1;
   box-shadow: 0px 0px 15px black;
+  text-transform: uppercase;
 }
 
 .title {
-  text-transform: uppercase;
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 10px;
@@ -114,14 +136,19 @@ input {
   box-shadow: 0px 0px 15px black;
 }
 
-#attack1,
-#attack2,
-#attack3,
 .pokemon-number {
   color: white;
   margin-bottom: 13px;
   font-size: 1.1rem;
   list-style: none;
+  height: 60px;
+  line-height: 50px;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 35px;
+  border: 5px solid white;
+  background-color: rgb(0, 0, 0);
 }
 
 .pokemon-number {
@@ -144,6 +171,10 @@ footer {
     width: 90%;
   }
 
+  .container-btn {
+    width: 70%;
+  }
+
   .container-cards {
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
@@ -163,6 +194,10 @@ footer {
     width: 100%;
   }
 
+  .container-btn {
+    width: 70%;
+  }
+
   .container-cards {
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
@@ -179,16 +214,27 @@ footer {
   }
 
   .container {
-    background-color: #26115f;
+    background-color: #f6ff00;
   }
 
-  input {
-    margin-bottom: 45px;
+  .container-btn {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 70px;
+  }
+
+  .container-btn p {
+    margin-bottom: 30px;
+  }
+
+  .container-btn button {
+    margin-bottom: 30px;
   }
 
   .card {
+    border: 15px solid black;
     transform: scale(0.75);
-    margin-bottom: -40px;
+    margin-bottom: -90px;
   }
 
   .container-cards {
