@@ -77,7 +77,7 @@ nextBtn.addEventListener('click', () => {
   } else if (currentPage === 41) {
     nextBtn.style = 'visibility: hidden';
     currentPage++;
-    let accumulated = 240;
+    let accumulated = 247;
     hideCards();
     getDataLastPage(accumulated, 252);
     numberPage.innerHTML = currentPage;
