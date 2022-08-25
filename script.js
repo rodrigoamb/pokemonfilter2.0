@@ -1,9 +1,7 @@
-const inputSearch = document.querySelector('#search');
 const containerCards = document.querySelector('.container-cards');
 const containerBtn = document.querySelector('.container-btn');
 const nextBtn = document.getElementById('next-btn');
-const previousBtn = document.getElementById('previous-btn');
-const numberPage = document.getElementById('number-page');
+
 let currentPage = 1;
 
 async function getDataPokemon(accumulated = 1, page = 1) {
@@ -27,11 +25,6 @@ async function getDataLastPage(accumulated, lastPokemon) {
   }
   creatingCards(listPokemon);
 }
-
-window.onload = function loadPage() {
-  getDataPokemon();
-  previousBtn.style = 'visibility: hidden';
-};
 
 function creatingCards(list) {
   list.map((item) => {
@@ -57,53 +50,21 @@ function creatingCards(list) {
   });
 }
 
-function filteringListPokemon(search) {
-  let filteredList = listPokemon.filter((pkm) => pkm.pokemon.includes(search));
-  return filteredList;
-}
-
-function hideCards() {
-  containerCards.innerHTML = '';
-}
+getDataPokemon();
 
 nextBtn.addEventListener('click', () => {
   if (currentPage === 1) {
-    previousBtn.style = 'visibility: none';
     currentPage++;
     let accumulated = 7;
-    hideCards();
     getDataPokemon(accumulated, currentPage);
-    numberPage.innerHTML = currentPage;
   } else if (currentPage === 41) {
     nextBtn.style = 'visibility: hidden';
     currentPage++;
     let accumulated = 247;
-    hideCards();
     getDataLastPage(accumulated, 252);
-    numberPage.innerHTML = currentPage;
   } else {
-    previousBtn.style = 'visibility: none';
     currentPage++;
     let accumulated = 6 * (currentPage - 1) + 1;
-    hideCards();
     getDataPokemon(accumulated, currentPage);
-    numberPage.innerHTML = currentPage;
-  }
-});
-
-previousBtn.addEventListener('click', () => {
-  if (currentPage === 2) {
-    previousBtn.style = 'visibility: hidden';
-    currentPage--;
-    hideCards();
-    getDataPokemon();
-    numberPage.innerHTML = currentPage;
-  } else {
-    nextBtn.style = 'visibility: none';
-    currentPage--;
-    let accumulated = 6 * (currentPage - 1) + 1;
-    hideCards();
-    getDataPokemon(accumulated, currentPage);
-    numberPage.innerHTML = currentPage;
   }
 });

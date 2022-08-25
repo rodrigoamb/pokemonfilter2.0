@@ -27,7 +27,7 @@ body {
 
 .logo-pokemon {
   height: 100px;
-  margin-bottom: 30px;
+  margin-bottom: 160px;
   filter: drop-shadow(0px 0px 10px #1c1c1c);
 }
 
@@ -40,24 +40,12 @@ body {
   margin-bottom: 180px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.container-btn p {
-  font-size: 1.3rem;
-  border: 2px solid black;
-  padding: 10px 30px;
-  border-radius: 10px;
-  background-color: white;
-}
-
-.container-btn p strong {
-  font-size: 1.5rem;
-}
-
 .container-btn button {
-  width: 200px;
+  width: 300px;
   padding: 20px 0;
   border-radius: 15px;
   font-size: 1.3rem;
@@ -70,13 +58,11 @@ body {
 
 .container-cards {
   width: 75%;
-  padding-bottom: 100px;
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 100px;
-  grid-row-gap: 100px;
 }
 
 .card {
@@ -94,7 +80,7 @@ body {
     rgba(116, 116, 116, 1) 100%
   );
   min-width: 300px;
-  margin-bottom: 100px;
+  margin-bottom: 150px;
 }
 
 .card img {
@@ -171,21 +157,17 @@ footer {
     width: 90%;
   }
 
-  .container-btn {
-    width: 70%;
-  }
-
   .container-cards {
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
   }
 
   .card {
-    margin-bottom: 180px;
+    margin-bottom: 125px;
   }
 
-  input {
-    width: 80%;
+  .container-btn {
+    width: 70%;
   }
 }
 
@@ -199,13 +181,13 @@ footer {
   }
 
   .container-cards {
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-    grid-column-gap: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 450px) {
   body {
     background-color: #26115f;
     background-image: none;
@@ -217,14 +199,14 @@ footer {
     background-color: #f6ff00;
   }
 
+  .logo-pokemon {
+    margin-bottom: 60px;
+  }
+
   .container-btn {
     flex-direction: column;
     align-items: center;
     margin-bottom: 70px;
-  }
-
-  .container-btn p {
-    margin-bottom: 30px;
   }
 
   .container-btn button {
@@ -234,7 +216,7 @@ footer {
   .card {
     border: 15px solid black;
     transform: scale(0.75);
-    margin-bottom: -90px;
+    margin-bottom: 1px;
   }
 
   .container-cards {
@@ -242,6 +224,7 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-items: center;
+    margin-bottom: 50px;
   }
 
   footer {
